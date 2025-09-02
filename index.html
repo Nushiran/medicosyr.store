@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicosyr.store - قيد التطوير</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --color-dark-blue: #1D5A7A;
+            --color-light-blue: #E6F2F8;
+            --color-orange: #F57C00;
+            --color-green: #1E8449;
+        }
+        
+        body {
+            font-family: 'Cairo', system-ui, -apple-system, sans-serif;
+            position: relative;
+            overflow: hidden;
+            height: 100vh;
+            background: linear-gradient(135deg, #1D5A7A 0%, #F57C00 100%);
+        }
+        
+        .bg-dark-blue { background-color: var(--color-dark-blue); }
+        .text-dark-blue { color: var(--color-dark-blue); }
+        .bg-orange { background-color: var(--color-orange); }
+        .bg-green { background-color: var(--color-green); }
+        
+        /* طبقة التطوير */
+        .development-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .development-content {
+            max-width: 700px;
+            padding: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            animation: pulse 3s infinite ease-in-out;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); }
+            50% { transform: scale(1.02); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4); }
+            100% { transform: scale(1); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); }
+        }
+        
+        .logo-development {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 25px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .development-title {
+            font-size: 2.8rem;
+            margin-bottom: 25px;
+            font-weight: bold;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .development-message {
+            font-size: 1.3rem;
+            margin-bottom: 35px;
+            line-height: 1.7;
+        }
+        
+        .development-contacts {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 35px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 12px 25px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .countdown {
+            font-size: 1.8rem;
+            margin: 25px 0;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .countdown-label {
+            font-size: 1rem;
+            margin-top: 8px;
+            opacity: 0.9;
+        }
+        
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 15px;
+            min-width: 80px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .countdown-unit {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+        
+        .social-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 1.5rem;
+        }
+        
+        .social-icon:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-5px) rotate(5deg);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 30px 0;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #1E8449, #F57C00);
+            border-radius: 10px;
+            width: 15%;
+            animation: progressAnimation 30s linear infinite;
+        }
+        
+        @keyframes progressAnimation {
+            0% { width: 15%; }
+            100% { width: 100%; }
+        }
+        
+        /* أنماط الاستجابة */
+        @media (max-width: 768px) {
+            .development-content {
+                padding: 30px 20px;
+                margin: 20px;
+                border-radius: 20px;
+            }
+            
+            .development-title {
+                font-size: 2rem;
+            }
+            
+            .development-message {
+                font-size: 1.1rem;
+            }
+            
+            .countdown-container {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .countdown-item {
+                min-width: 70px;
+                padding: 12px;
+            }
+            
+            .countdown-number {
+                font-size: 2rem;
+            }
+            
+            .logo-development {
+                font-size: 2.2rem;
+            }
+            
+            .contact-item {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .social-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .development-title {
+                font-size: 1.8rem;
+            }
+            
+            .countdown-item {
+                min-width: 60px;
+                padding: 10px;
+            }
+            
+            .countdown-number {
+                font-size: 1.7rem;
+            }
+            
+            .development-contacts {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800">
+
+    <!-- طبقة الصفحة قيد التطوير -->
+    <div class="development-overlay">
+        <div class="development-content">
+            <div class="logo-development">Medicosyr.store</div>
+            <h1 class="development-title">صفحتنا قيد التطوير</h1>
+            <p class="development-message">
+                نحن نعمل على تحسين متجرنا لتقديم تجربة تسوق استثنائية لكم. 
+                سنعود خلال <strong>30 يومًا</strong> بمظهر جديد ووظائف محسنة لخدمتكم.
+            </p>
+            
+            <!-- شريط التقدم -->
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+            </div>
+            
+            <!-- العد التنازلي -->
+            <div class="countdown-container">
+                <div class="countdown-item">
+                    <span id="days" class="countdown-number">30</span>
+                    <span class="countdown-unit">أيام</span>
+                </div>
+                <div class="countdown-item">
+                    <span id="hours" class="countdown-number">00</span>
+                    <span class="countdown-unit">ساعات</span>
+                </div>
+                <div class="countdown-item">
+                    <span id="minutes" class="countdown-number">00</span>
+                    <span class="countdown-unit">دقائق</span>
+                </div>
+                <div class="countdown-item">
+                    <span id="seconds" class="countdown-number">00</span>
+                    <span class="countdown-unit">ثواني</span>
+                </div>
+            </div>
+            
+            <p style="margin: 25px 0; font-size: 1.1rem;">للتواصل معنا خلال فترة التطوير:</p>
+            
+            <div class="development-contacts">
+                <div class="contact-item">
+                    <i class="fas fa-envelope me-2"></i>
+                    <span>info@medicosyr.store</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone me-2"></i>
+                    <span>+963 992 463 490</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-whatsapp me-2"></i>
+                    <span>واتساب</span>
+                </div>
+            </div>
+            
+            <p style="margin: 20px 0;">تابعونا على وسائل التواصل الاجتماعي:</p>
+            
+            <div class="social-icons">
+                <a href="#" class="social-icon">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social-icon">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-icon">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="social-icon">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- المحتوى الأصلي للمتجر (غير مرئي للمستخدم) -->
+    <div style="opacity: 0.2; pointer-events: none; height: 100vh; overflow: hidden;">
+        <!-- محتوى المتجر الأصلي -->
+    </div>
+
+    <script>
+        // عد تنازلي للافتتاح (30 يومًا من الآن)
+        const launchDate = new Date();
+        launchDate.setDate(launchDate.getDate() + 30);
+        
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = launchDate - now;
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById("days").textContent = days.toString().padStart(2, '0');
+            document.getElementById("hours").textContent = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").textContent = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").textContent = seconds.toString().padStart(2, '0');
+            
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById("days").textContent = "00";
+                document.getElementById("hours").textContent = "00";
+                document.getElementById("minutes").textContent = "00";
+                document.getElementById("seconds").textContent = "00";
+            }
+        }
+        
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        updateCountdown();
+        
+        // منع أي تفاعل مع المحتوى الأساسي
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.development-content')) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        }, true);
+        
+        document.addEventListener('keydown', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }, true);
+        
+        // إضافة تأثيرات عند التمرير (لللمسات الجمالية فقط)
+        document.addEventListener('DOMContentLoaded', function() {
+            const progressBar = document.querySelector('.progress-bar');
+            let progress = 15;
+            const progressInterval = setInterval(() => {
+                progress += 0.1;
+                progressBar.style.width = `${progress}%`;
+                
+                if (progress >= 100) {
+                    progress = 15;
+                }
+            }, 30000 / 85); // يتناسب مع مدة العد التنازلي
+        });
+    </script>
+</body>
+</html>
